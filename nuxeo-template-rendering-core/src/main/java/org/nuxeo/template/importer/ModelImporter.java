@@ -206,6 +206,10 @@ public class ModelImporter {
             }
         });
 
+        if (modelRoots == null) {
+            return 0;
+        }
+
         for (File modelRoot : modelRoots) {
             log.info("Importing template from " + modelRoot.getAbsolutePath());
             nbImportedDocs += importModelAndExamples(modelRoot);
