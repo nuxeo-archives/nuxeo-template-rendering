@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2012 Nuxeo SA (http://nuxeo.com/) and others.
+ * (C) Copyright 2012-2018 Nuxeo (http://nuxeo.com/) and others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,24 +18,23 @@
  */
 package org.nuxeo.ecm.platform.template.tests;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
-import org.nuxeo.runtime.test.NXRuntimeTestCase;
+import org.junit.runner.RunWith;
+import org.nuxeo.runtime.test.runner.Features;
+import org.nuxeo.runtime.test.runner.FeaturesRunner;
+import org.nuxeo.runtime.test.runner.RuntimeFeature;
 import org.nuxeo.template.processors.HtmlBodyExtractor;
 
-import static org.junit.Assert.*;
-
-public class TestHtmlExtractor extends NXRuntimeTestCase {
+@RunWith(FeaturesRunner.class)
+@Features(RuntimeFeature.class)
+public class TestHtmlExtractor {
 
     @Test
     public void testHtmlBoduExtractor() throws Exception {
-        String html = "<html><body>PAGE</body></html>";
-        assertEquals("PAGE", HtmlBodyExtractor.extractHtmlBody(html));
-
-        html = "<html><body style=\"body\" >PAGE</body></html>";
-        assertEquals("PAGE", HtmlBodyExtractor.extractHtmlBody(html));
-
-        html = "<html><Body style=\"body\" >PAGE</BODY></html>";
-        assertEquals("PAGE", HtmlBodyExtractor.extractHtmlBody(html));
-
+        assertEquals("PAGE", HtmlBodyExtractor.extractHtmlBody("<html><body>PAGE</body></html>"));
+        assertEquals("PAGE", HtmlBodyExtractor.extractHtmlBody("<html><body style=\"body\" >PAGE</body></html>"));
+        assertEquals("PAGE", HtmlBodyExtractor.extractHtmlBody("<html><Body style=\"body\" >PAGE</BODY></html>"));
     }
 }

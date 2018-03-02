@@ -1,5 +1,5 @@
 /*
- * (C) Copyright 2011-2016 Nuxeo SA (http://nuxeo.com/) and others.
+ * (C) Copyright 2011-2018 Nuxeo (http://nuxeo.com/) and others.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,18 +27,19 @@ import java.util.List;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Test;
-import org.nuxeo.runtime.test.NXRuntimeTestCase;
+import org.junit.runner.RunWith;
+import org.nuxeo.runtime.test.runner.Deploy;
+import org.nuxeo.runtime.test.runner.Features;
+import org.nuxeo.runtime.test.runner.FeaturesRunner;
+import org.nuxeo.runtime.test.runner.RuntimeFeature;
 import org.nuxeo.template.fm.FreeMarkerVariableExtractor;
 
-public class TestFreemarkerVariableExractor extends NXRuntimeTestCase {
-
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        deployBundle("org.nuxeo.template.manager.api");
-        deployContrib("org.nuxeo.template.manager", "OSGI-INF/templateprocessor-service.xml");
-        deployContrib("org.nuxeo.template.manager", "OSGI-INF/templateprocessor-contrib.xml");
-    }
+@RunWith(FeaturesRunner.class)
+@Features(RuntimeFeature.class)
+@Deploy("org.nuxeo.template.manager.api")
+@Deploy("org.nuxeo.template.manager:OSGI-INF/templateprocessor-service.xml")
+@Deploy("org.nuxeo.template.manager:OSGI-INF/templateprocessor-contrib.xml")
+public class TestFreemarkerVariableExractor {
 
     @Test
     public void testExtractor() throws Exception {
